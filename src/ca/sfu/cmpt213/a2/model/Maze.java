@@ -9,9 +9,7 @@ import java.util.Random;
  */
 
 public class Maze {
-    // 16
     public static int ROW = 16;
-    // 20
     public static int COL = 20;
     public static int WALL = 1;
     public static int BORDER = 9;
@@ -56,7 +54,7 @@ public class Maze {
         int yStart = 1;
 
         ArrayList<Wait> waitList = new ArrayList<Wait>();
-        maze[xStart][yStart] = EMPTY_SPACE;
+        maze[yStart][xStart] = EMPTY_SPACE;
 
         waitList = addWaitList(waitList, maze, xStart, yStart);
 
@@ -71,11 +69,6 @@ public class Maze {
             waitX = waitList.get(j).x;
             waitY = waitList.get(j).y;
             waitList.remove(j);
-
-            System.out.print(waitY);
-            System.out.print(" ");
-            System.out.print(waitX);
-            System.out.println();
 
             pathNum = 0;
             int pathLeft = 0;
