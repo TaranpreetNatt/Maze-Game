@@ -4,20 +4,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Relic {
-    private static int numOfRelics;
     private static Coordinate relicPosition;
     private static int RELIC = Maze.RELIC;
 
-    public static int getRelicNum() {
-        return numOfRelics;
-    }
-
-    public static void setNumOfRelics(int num) {
-        numOfRelics = num;
-    }
-
-    public static boolean isRelic(int x, int y) {
-        if (relicPosition.x == x && relicPosition.y == y) {
+    public static boolean isRelic(Coordinate playerPosition) {
+        if (relicPosition.x == playerPosition.x && relicPosition.y == playerPosition.y) {
             return true;
         }
         return false;

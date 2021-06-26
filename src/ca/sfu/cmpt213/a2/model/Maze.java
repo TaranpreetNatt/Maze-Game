@@ -1,8 +1,8 @@
 package ca.sfu.cmpt213.a2.model;
 
-import javax.swing.border.Border;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /** Creates maze
  * @author Taranpreet
@@ -176,6 +176,10 @@ public class Maze {
                 if (maze[i][j] == RELIC) {
                     System.out.print("^");
                 }
+                if (maze[i][j] == PLAYER) {
+                    System.out.print("@");
+                }
+
             }
             System.out.println();
         }
@@ -217,13 +221,40 @@ public class Maze {
     public static void main(String[] args) {
         int[][] maze = generateMaze();
 
-        while(checkFourWalls(maze)) {
-            maze = generateMaze();
-            System.out.println("Four walls were detected, remaking maze");
-        }
+//        while(checkFourWalls(maze)) {
+//            maze = generateMaze();
+//            System.out.println("Four walls were detected, remaking maze");
+//        }
 
         maze = Relic.createRelic(maze);
+        maze = Player.createPlayer(maze);
+
         printMaze(maze);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter move");
+        char move = scanner.next().charAt(0);
+        System.out.println(move);
+
+        maze = Player.movePlayer(maze, move);
+        Game.setNumOfRelics(1);
+        while (move != 'z') {
+            printMaze(maze);
+            move = scanner.next().charAt(0);
+            maze = Player.movePlayer(maze, move);
+
+
+            if (Game.win()) {
+                break;
+            }
+
+        }
+        printMaze(maze);
+        System.out.println("You won");
+//        maze = Player.movePlayer(maze, "s");
+//        maze = Player.movePlayer(maze, "D");
+//        maze = Player.movePlayer(maze, "D");
+
+
 
 //        printMazeNum(maze);
     }
