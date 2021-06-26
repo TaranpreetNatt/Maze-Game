@@ -20,7 +20,7 @@ public class Maze {
     protected static int RELIC = 4;
     private static ArrayList<Coordinate> pathList = new ArrayList<Coordinate>();
 
-    public static ArrayList<Coordinate> getPathList () {
+    public static ArrayList<Coordinate> getPathList() {
         return pathList;
     }
 
@@ -190,7 +190,7 @@ public class Maze {
         }
     }
 
-    public static boolean checkFourWalls (int[][] maze) {
+    public static boolean checkFourWalls(int[][] maze) {
         int counter = 1;
         for (int i = 1; i < ROW - 1; i++) {
             for (int j = 1; j < COL - 1; j++) {

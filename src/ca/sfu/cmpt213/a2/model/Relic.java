@@ -16,6 +16,13 @@ public class Relic {
         numOfRelics = num;
     }
 
+    public static boolean isRelic(int x, int y) {
+        if (relicPosition.x == x && relicPosition.y == y) {
+            return true;
+        }
+        return false;
+    }
+
     public static int[][] createRelic(int[][] maze) {
         ArrayList<Coordinate> pathList = Maze.getPathList();
         Random random = new Random();
