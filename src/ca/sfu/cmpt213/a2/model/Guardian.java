@@ -29,6 +29,22 @@ public class Guardian {
         return maze;
     }
 
+    public static boolean atGuardian(Coordinate playerPosition) {
+        int x = playerPosition.x;
+        int y = playerPosition.y;
+
+        if (currentPosition.get(0).x == x && currentPosition.get(0).y == y) {
+            return true;
+        }
+        if (currentPosition.get(1).x == x && currentPosition.get(1).y == y) {
+            return true;
+        }
+        if (currentPosition.get(2).x == x && currentPosition.get(2).y == y) {
+            return true;
+        }
+        return false;
+    }
+
     public static int[][] moveGuardian(int[][] maze, int i) {
         ArrayList<String> moves = new ArrayList<String>();
         moves.add("w");
@@ -190,29 +206,21 @@ public class Guardian {
         int wallCounter = 0;
 
         if (maze[y - 1][x] == Maze.WALL || maze[y - 1][x] == Maze.BORDER) {
-            System.out.println("up");
             wallCounter = wallCounter + 1;
         }
         if (maze[y + 1][x] == Maze.WALL || maze[y + 1][x] == Maze.BORDER) {
-            System.out.println("down");
             wallCounter = wallCounter + 1;
         }
         if (maze[y][x + 1] == Maze.WALL || maze[y][x + 1] == Maze.BORDER) {
-            System.out.println("right");
             wallCounter = wallCounter + 1;
         }
         if (maze[y][x - 1] == Maze.WALL || maze[y][x - 1] == Maze.BORDER) {
-            System.out.println("left");
             wallCounter = wallCounter + 1;
         }
-
-        System.out.println(wallCounter);
         if (wallCounter >= 3 && (last.x != nextX || last.y != nextY)) {
-            System.out.println("Stuck");
             lastPosition.remove(last);
             return true;
         }
-
         return false;
     }
 
@@ -220,6 +228,10 @@ public class Guardian {
         if (Relic.isRelic(currentPosition.get(i))) {
             Coordinate relicPosition = Relic.getRelicPosition();
             maze[relicPosition.y][relicPosition.x] = RELIC;
+        }
+        else if (Player.atPlayer(currentPosition.get(i))) {
+            Coordinate playerPosition = Player.getPlayerPosition();
+            maze[playerPosition.y][playerPosition.x] = Maze.PLAYER;
         }
         else {
             maze[y][x] = Maze.EMPTY_SPACE;

@@ -10,4 +10,12 @@ public class Game {
     public static boolean win() {
         return Player.getObtainedRelics() == RELIC_WIN_CONDITION;
     }
+
+    public static boolean lose() {
+        Coordinate playerPosition = Player.getPlayerPosition();
+        if (Guardian.atGuardian(playerPosition)) {
+            return true;
+        }
+        return false;
+    }
 }

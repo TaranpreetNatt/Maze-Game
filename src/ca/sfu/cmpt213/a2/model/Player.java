@@ -23,6 +23,17 @@ public class Player {
         return false;
     }
 
+    public static Coordinate getPlayerPosition() {
+        return playerPosition;
+    }
+
+    public static boolean atPlayer(Coordinate guardian) {
+        if (guardian.x == playerPosition.x && guardian.y == playerPosition.y) {
+            return true;
+        }
+        return false;
+    }
+
     public static int[][] movePlayer(int[][] maze, char move) {
         int x = playerPosition.x;
         int y = playerPosition.y;
@@ -31,7 +42,12 @@ public class Player {
             int nextX = x + 1;
             int nextY = y;
             if (maze[nextY][nextX] != Maze.WALL && maze[nextY][nextX] != Maze.BORDER) {
-                maze[y][x] = Maze.EMPTY_SPACE;
+                if (Guardian.atGuardian(playerPosition)) {
+                    maze[y][x] = Maze.GUARDIAN;
+                }
+                else {
+                    maze[y][x] = Maze.EMPTY_SPACE;
+                }
                 maze[nextY][nextX] = PLAYER;
 
                 playerPosition.x = nextX;
@@ -43,7 +59,12 @@ public class Player {
             int nextX = x;
             int nextY = y + 1;
             if (maze[nextY][nextX] != Maze.WALL && maze[nextY][nextX] != Maze.BORDER) {
-                maze[y][x] = Maze.EMPTY_SPACE;
+                if (Guardian.atGuardian(playerPosition)) {
+                    maze[y][x] = Maze.GUARDIAN;
+                }
+                else {
+                    maze[y][x] = Maze.EMPTY_SPACE;
+                }
                 maze[nextY][nextX] = PLAYER;
 
                 playerPosition.x = nextX;
@@ -55,7 +76,12 @@ public class Player {
             int nextX = x - 1;
             int nextY = y;
             if (maze[nextY][nextX] != Maze.WALL && maze[nextY][nextX] != Maze.BORDER) {
-                maze[y][x] = Maze.EMPTY_SPACE;
+                if (Guardian.atGuardian(playerPosition)) {
+                    maze[y][x] = Maze.GUARDIAN;
+                }
+                else {
+                    maze[y][x] = Maze.EMPTY_SPACE;
+                }
                 maze[nextY][nextX] = PLAYER;
 
                 playerPosition.x = nextX;
@@ -66,7 +92,12 @@ public class Player {
             int nextX = x;
             int nextY = y - 1;
             if (maze[nextY][nextX] != Maze.WALL && maze[nextY][nextX] != Maze.BORDER) {
-                maze[y][x] = Maze.EMPTY_SPACE;
+                if (Guardian.atGuardian(playerPosition)) {
+                    maze[y][x] = Maze.GUARDIAN;
+                }
+                else {
+                    maze[y][x] = Maze.EMPTY_SPACE;
+                }
                 maze[nextY][nextX] = PLAYER;
 
                 playerPosition.x = nextX;

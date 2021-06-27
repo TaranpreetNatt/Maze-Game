@@ -241,9 +241,16 @@ public class Maze {
         char move = scanner.next().charAt(0);
         System.out.println(move);
 
+        Game.setNumOfRelics(1);
         maze = Player.movePlayer(maze, move);
         maze = Guardian.moveGuardians(maze);
-        Game.setNumOfRelics(1);
+        if (Game.win()) {
+            System.out.println("You won");
+        }
+
+        if (Game.lose()) {
+            System.out.println("You lost");
+        }
         while (move != 'z') {
             printMaze(maze);
             move = scanner.next().charAt(0);
@@ -251,12 +258,18 @@ public class Maze {
             maze = Guardian.moveGuardians(maze);
 
             if (Game.win()) {
+                System.out.println("You won");
                 break;
             }
 
+            if (Game.lose()) {
+                System.out.println("You lost");
+                break;
+            }
+
+
         }
         printMaze(maze);
-        System.out.println("You won");
 //        maze = Player.movePlayer(maze, "s");
 //        maze = Player.movePlayer(maze, "D");
 //        maze = Player.movePlayer(maze, "D");
