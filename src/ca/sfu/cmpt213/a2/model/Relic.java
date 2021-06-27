@@ -5,13 +5,14 @@ import java.util.Random;
 
 public class Relic {
     private static Coordinate relicPosition;
-    private static int RELIC = Maze.RELIC;
+    private static final int RELIC = Maze.RELIC;
 
-    public static boolean isRelic(Coordinate playerPosition) {
-        if (relicPosition.x == playerPosition.x && relicPosition.y == playerPosition.y) {
-            return true;
-        }
-        return false;
+    public static boolean isRelic(Coordinate position) {
+        return relicPosition.x == position.x && relicPosition.y == position.y;
+    }
+
+    public static Coordinate getRelicPosition() {
+        return relicPosition;
     }
 
     public static int[][] createRelic(int[][] maze) {
@@ -19,9 +20,10 @@ public class Relic {
         Random random = new Random();
         int j = random.ints(0, pathList.size()).findFirst().getAsInt();
 
-        Coordinate coordinate = new Coordinate(pathList.get(j).y, pathList.get(j).x);
-        relicPosition = coordinate;
-        maze[relicPosition.y][relicPosition.x] = RELIC;
+//        relicPosition = new Coordinate(pathList.get(j).y, pathList.get(j).x);
+//        maze[relicPosition.y][relicPosition.x] = RELIC;
+        maze[1][17] = RELIC;
+        relicPosition = new Coordinate(1, 17);
         return maze;
-    };
+    }
 }

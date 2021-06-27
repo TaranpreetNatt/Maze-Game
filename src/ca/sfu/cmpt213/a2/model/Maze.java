@@ -1,5 +1,6 @@
 package ca.sfu.cmpt213.a2.model;
 
+import java.security.Guard;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -10,14 +11,14 @@ import java.util.Scanner;
  */
 
 public class Maze {
-    protected static int ROW = 16;
-    protected static int COL = 20;
-    protected static int WALL = 1;
-    protected static int BORDER = 9;
-    protected static int EMPTY_SPACE = 0;
-    protected static int PLAYER = 2;
-    protected static int GUARDIAN = 3;
-    protected static int RELIC = 4;
+    protected static final int ROW = 16;
+    protected static final int COL = 20;
+    protected static final int WALL = 1;
+    protected static final int BORDER = 9;
+    protected static final int EMPTY_SPACE = 0;
+    protected static final int PLAYER = 2;
+    protected static final int GUARDIAN = 3;
+    protected static final int RELIC = 4;
     private static ArrayList<Coordinate> pathList = new ArrayList<Coordinate>();
 
     public static ArrayList<Coordinate> getPathList() {
@@ -179,6 +180,9 @@ public class Maze {
                 if (maze[i][j] == PLAYER) {
                     System.out.print("@");
                 }
+                if (maze[i][j] == GUARDIAN) {
+                    System.out.print("!");
+                }
 
             }
             System.out.println();
@@ -228,6 +232,8 @@ public class Maze {
 
         maze = Relic.createRelic(maze);
         maze = Player.createPlayer(maze);
+        maze = Guardian.createGuardians(maze);
+
 
         printMaze(maze);
         Scanner scanner = new Scanner(System.in);
@@ -236,12 +242,13 @@ public class Maze {
         System.out.println(move);
 
         maze = Player.movePlayer(maze, move);
+        maze = Guardian.moveGuardians(maze);
         Game.setNumOfRelics(1);
         while (move != 'z') {
             printMaze(maze);
             move = scanner.next().charAt(0);
             maze = Player.movePlayer(maze, move);
-
+            maze = Guardian.moveGuardians(maze);
 
             if (Game.win()) {
                 break;

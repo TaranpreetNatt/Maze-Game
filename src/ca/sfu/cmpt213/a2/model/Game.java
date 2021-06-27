@@ -8,9 +8,6 @@ public class Game {
     }
 
     public static boolean win() {
-        if (Player.getObtainedRelics() == RELIC_WIN_CONDITION) {
-            return true;
-        }
-        return false;
+        return Player.getObtainedRelics() == RELIC_WIN_CONDITION;
     }
 }
