@@ -20,10 +20,8 @@ public class Relic {
         Random random = new Random();
         int j = random.ints(0, pathList.size()).findFirst().getAsInt();
 
-//        relicPosition = new Coordinate(pathList.get(j).y, pathList.get(j).x);
-//        maze[relicPosition.y][relicPosition.x] = RELIC;
-        maze[1][17] = RELIC;
-        relicPosition = new Coordinate(1, 17);
+        relicPosition = new Coordinate(pathList.get(j).y, pathList.get(j).x);
+        maze[relicPosition.y][relicPosition.x] = RELIC;
         return maze;
     }
 }

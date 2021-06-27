@@ -6,7 +6,9 @@ import java.util.Random;
 public class Guardian {
     private static final int GUARDIAN = Maze.GUARDIAN;
     private static final int RELIC = Maze.RELIC;
-    private static ArrayList<Coordinate> lastPosition = new ArrayList<>();
+    private static ArrayList<Coordinate> lastPositionOne = new ArrayList<>();
+    private static ArrayList<Coordinate> lastPositionTwo = new ArrayList<>();
+    private static ArrayList<Coordinate> lastPositionThree = new ArrayList<>();
     private static ArrayList<Coordinate> currentPosition = new ArrayList<>();
 
     public static int[][] createGuardians(int[][] maze) {
@@ -21,10 +23,9 @@ public class Guardian {
     }
 
     public static int[][] moveGuardians(int[][] maze) {
-//        maze = moveGuardian(maze, 0);
+        maze = moveGuardian(maze, 0);
         maze = moveGuardian(maze, 1);
-//        maze = moveGuardian(maze, 2);
-
+        maze = moveGuardian(maze, 2);
         return maze;
     }
 
@@ -34,6 +35,17 @@ public class Guardian {
         moves.add("a");
         moves.add("s");
         moves.add("D");
+
+        ArrayList<Coordinate> lastPosition = new ArrayList<>();
+        if (i == 0) {
+            lastPosition = lastPositionOne;
+        }
+        if (i == 1) {
+            lastPosition = lastPositionTwo;
+        }
+        if (i == 2) {
+            lastPosition = lastPositionThree;
+        }
 
         Random random = new Random();
         int x = currentPosition.get(i).x;
@@ -49,12 +61,12 @@ public class Guardian {
                 int nextY = y;
 
                 if (!lastPosition.isEmpty()) {
-                    Coordinate last = findLastPosition(id);
-                    noLegalMove(maze, currentPosition.get(i), last, nextX, nextY);
+                    Coordinate last = findLastPosition(id, lastPosition);
+                    noLegalMove(maze, currentPosition.get(i), last, nextX, nextY, lastPosition);
                 }
                 if (maze[nextY][nextX] != Maze.WALL && maze[nextY][nextX] != Maze.BORDER) {
                     if (lastPosition.isEmpty()) {
-                        maze = reRenderRelic(maze, y, x, 0);
+                        maze = reRenderRelic(maze, y, x, i);
                         maze[nextY][nextX] = GUARDIAN;
                         currentPosition.get(i).x = nextX;
                         currentPosition.get(i).y = nextY;
@@ -62,9 +74,9 @@ public class Guardian {
                         break;
                     }
                     if (!lastPosition.isEmpty()) {
-                        Coordinate last = findLastPosition(id);
+                        Coordinate last = findLastPosition(id, lastPosition);
                         if (last.x != nextX || last.y != nextY) {
-                            maze = reRenderRelic(maze, y, x, 0);
+                            maze = reRenderRelic(maze, y, x, i);
                             maze[nextY][nextX] = GUARDIAN;
                             currentPosition.get(i).x = nextX;
                             currentPosition.get(i).y = nextY;
@@ -80,12 +92,12 @@ public class Guardian {
                 int nextY = y;
 
                 if (!lastPosition.isEmpty()) {
-                    Coordinate last = findLastPosition(id);
-                    noLegalMove(maze, currentPosition.get(i), last, nextX, nextY);
+                    Coordinate last = findLastPosition(id, lastPosition);
+                    noLegalMove(maze, currentPosition.get(i), last, nextX, nextY, lastPosition);
                 }
                 if (maze[nextY][nextX] != Maze.WALL && maze[nextY][nextX] != Maze.BORDER) {
                     if (lastPosition.isEmpty()) {
-                        maze = reRenderRelic(maze, y, x, 0);
+                        maze = reRenderRelic(maze, y, x, i);
                         maze[nextY][nextX] = GUARDIAN;
                         currentPosition.get(i).x = nextX;
                         currentPosition.get(i).y = nextY;
@@ -93,9 +105,9 @@ public class Guardian {
                         break;
                     }
                     if (!lastPosition.isEmpty()) {
-                        Coordinate last = findLastPosition(id);
+                        Coordinate last = findLastPosition(id, lastPosition);
                         if (last.x != nextX || last.y != nextY) {
-                            maze = reRenderRelic(maze, y, x, 0);
+                            maze = reRenderRelic(maze, y, x, i);
                             maze[nextY][nextX] = GUARDIAN;
                             currentPosition.get(i).x = nextX;
                             currentPosition.get(i).y = nextY;
@@ -111,12 +123,12 @@ public class Guardian {
                 int nextY = y + 1;
 
                 if (!lastPosition.isEmpty()) {
-                    Coordinate last = findLastPosition(id);
-                    noLegalMove(maze, currentPosition.get(i), last, nextX, nextY);
+                    Coordinate last = findLastPosition(id, lastPosition);
+                    noLegalMove(maze, currentPosition.get(i), last, nextX, nextY, lastPosition);
                 }
                 if (maze[nextY][nextX] != Maze.WALL && maze[nextY][nextX] != Maze.BORDER) {
                     if (lastPosition.isEmpty()) {
-                        maze = reRenderRelic(maze, y, x, 0);
+                        maze = reRenderRelic(maze, y, x, i);
                         maze[nextY][nextX] = GUARDIAN;
                         currentPosition.get(i).x = nextX;
                         currentPosition.get(i).y = nextY;
@@ -124,9 +136,9 @@ public class Guardian {
                         break;
                     }
                     if (!lastPosition.isEmpty()) {
-                        Coordinate last = findLastPosition(id);
+                        Coordinate last = findLastPosition(id, lastPosition);
                         if (last.x != nextX || last.y != nextY) {
-                            maze = reRenderRelic(maze, y, x, 0);
+                            maze = reRenderRelic(maze, y, x, i);
                             maze[nextY][nextX] = GUARDIAN;
                             currentPosition.get(i).x = nextX;
                             currentPosition.get(i).y = nextY;
@@ -142,12 +154,12 @@ public class Guardian {
                 int nextY = y - 1;
 
                 if (!lastPosition.isEmpty()) {
-                    Coordinate last = findLastPosition(id);
-                    noLegalMove(maze, currentPosition.get(i), last, nextX, nextY);
+                    Coordinate last = findLastPosition(id, lastPosition);
+                    noLegalMove(maze, currentPosition.get(i), last, nextX, nextY, lastPosition);
                 }
                 if (maze[nextY][nextX] != Maze.WALL && maze[nextY][nextX] != Maze.BORDER) {
                     if (lastPosition.isEmpty()) {
-                        maze = reRenderRelic(maze, y, x, 0);
+                        maze = reRenderRelic(maze, y, x, i);
                         maze[nextY][nextX] = GUARDIAN;
                         currentPosition.get(i).x = nextX;
                         currentPosition.get(i).y = nextY;
@@ -155,9 +167,9 @@ public class Guardian {
                         break;
                     }
                     if (!lastPosition.isEmpty()) {
-                        Coordinate last = findLastPosition(id);
+                        Coordinate last = findLastPosition(id, lastPosition);
                         if (last.x != nextX || last.y != nextY) {
-                            maze = reRenderRelic(maze, y, x, 0);
+                            maze = reRenderRelic(maze, y, x, i);
                             maze[nextY][nextX] = GUARDIAN;
                             currentPosition.get(i).x = nextX;
                             currentPosition.get(i).y = nextY;
@@ -172,7 +184,7 @@ public class Guardian {
         return maze;
     }
 
-    private static boolean noLegalMove(int[][] maze, Coordinate currentPosition, Coordinate last, int nextX, int nextY) {
+    private static boolean noLegalMove(int[][] maze, Coordinate currentPosition, Coordinate last, int nextX, int nextY, ArrayList<Coordinate> lastPosition) {
         int x = currentPosition.x;
         int y = currentPosition.y;
         int wallCounter = 0;
@@ -215,7 +227,7 @@ public class Guardian {
         return maze;
     }
 
-    private static Coordinate findLastPosition(int id) {
+    private static Coordinate findLastPosition(int id, ArrayList<Coordinate> lastPosition) {
         Coordinate last = new Coordinate();
         for (int i = 0; i < lastPosition.size(); i++) {
             if (lastPosition.get(i).id == id) {
@@ -224,29 +236,4 @@ public class Guardian {
         }
         return last;
     }
-
-    private static int[][] moveDecision(int[][] maze, int nextY, int nextX, int y, int x,int i, int id) {
-        if (maze[nextY][nextX] != Maze.WALL && maze[nextY][nextX] != Maze.BORDER) {
-            if (lastPosition.isEmpty()) {
-                maze[y][x] = Maze.EMPTY_SPACE;
-                maze[nextY][nextX] = GUARDIAN;
-                currentPosition.get(i).x = nextX;
-                currentPosition.get(i).y = nextY;
-                lastPosition.add(new Coordinate(y, x, currentPosition.get(i).id));
-            }
-            if (!lastPosition.isEmpty()) {
-                Coordinate last = findLastPosition(id);
-                if (last.x != nextX || last.y != nextY) {
-                    maze[y][x] = Maze.EMPTY_SPACE;
-                    maze[nextY][nextX] = GUARDIAN;
-                    currentPosition.get(i).x = nextX;
-                    currentPosition.get(i).y = nextY;
-                    last.x = x;
-                    last.y = y;
-                }
-            }
-        }
-        return maze;
-    }
-
 }
