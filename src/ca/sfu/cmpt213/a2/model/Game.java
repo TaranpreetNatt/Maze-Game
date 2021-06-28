@@ -13,9 +13,6 @@ public class Game {
 
     public static boolean lose() {
         Coordinate playerPosition = Player.getPlayerPosition();
-        if (Guardian.atGuardian(playerPosition)) {
-            return true;
-        }
-        return false;
+        return Guardian.atGuardian(playerPosition);
     }
 }

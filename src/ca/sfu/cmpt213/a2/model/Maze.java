@@ -310,12 +310,5 @@ public class Maze {
 
         }
         printMaze(maze);
-//        maze = Player.movePlayer(maze, "s");
-//        maze = Player.movePlayer(maze, "D");
-//        maze = Player.movePlayer(maze, "D");
-
-
-
-//        printMazeNum(maze);
     }
 }

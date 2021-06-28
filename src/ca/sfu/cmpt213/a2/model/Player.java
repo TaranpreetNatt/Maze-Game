@@ -3,7 +3,7 @@ package ca.sfu.cmpt213.a2.model;
 public class Player {
     private static Coordinate playerPosition;
     private static int obtainedRelics;
-    private static int PLAYER = Maze.PLAYER;
+    private static final int PLAYER = Maze.PLAYER;
 
     public static int[][] createPlayer(int[][] maze) {
         maze[1][1] = PLAYER;
@@ -28,10 +28,7 @@ public class Player {
     }
 
     public static boolean atPlayer(Coordinate guardian) {
-        if (guardian.x == playerPosition.x && guardian.y == playerPosition.y) {
-            return true;
-        }
-        return false;
+        return guardian.x == playerPosition.x && guardian.y == playerPosition.y;
     }
 
     private static int[][] reveal(int[][] maze) {

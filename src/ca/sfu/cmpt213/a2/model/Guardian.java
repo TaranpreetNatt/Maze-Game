@@ -6,10 +6,10 @@ import java.util.Random;
 public class Guardian {
     private static final int GUARDIAN = Maze.GUARDIAN;
     private static final int RELIC = Maze.RELIC;
-    private static ArrayList<Coordinate> lastPositionOne = new ArrayList<>();
-    private static ArrayList<Coordinate> lastPositionTwo = new ArrayList<>();
-    private static ArrayList<Coordinate> lastPositionThree = new ArrayList<>();
-    private static ArrayList<Coordinate> currentPosition = new ArrayList<>();
+    private static final ArrayList<Coordinate> lastPositionOne = new ArrayList<>();
+    private static final ArrayList<Coordinate> lastPositionTwo = new ArrayList<>();
+    private static final ArrayList<Coordinate> lastPositionThree = new ArrayList<>();
+    private static final ArrayList<Coordinate> currentPosition = new ArrayList<>();
 
     public static int[][] createGuardians(int[][] maze) {
         maze[1][18] = GUARDIAN;
@@ -39,14 +39,11 @@ public class Guardian {
         if (currentPosition.get(1).x == x && currentPosition.get(1).y == y) {
             return true;
         }
-        if (currentPosition.get(2).x == x && currentPosition.get(2).y == y) {
-            return true;
-        }
-        return false;
+        return currentPosition.get(2).x == x && currentPosition.get(2).y == y;
     }
 
     public static int[][] moveGuardian(int[][] maze, int i) {
-        ArrayList<String> moves = new ArrayList<String>();
+        ArrayList<String> moves = new ArrayList<>();
         moves.add("w");
         moves.add("a");
         moves.add("s");
@@ -67,19 +64,12 @@ public class Guardian {
         int x = currentPosition.get(i).x;
         int y = currentPosition.get(i).y;
         int id = currentPosition.get(i).id;
-
-//        System.out.print(x);
-//        System.out.print(" ");
-//        System.out.print(y);
-//        System.out.print(" ");
-//        System.out.println(maze[y][x]);
-
         while(!moves.isEmpty()) {
             int j = random.ints(0, moves.size()).findFirst().getAsInt();
             String move = moves.get(j);
             moves.remove(j);
 
-            if (move == "A" || move == "a") {
+            if (move.equals("A") || move.equals("a")) {
                 int nextX = x - 1;
                 int nextY = y;
 
@@ -110,7 +100,7 @@ public class Guardian {
                     }
                 }
             }
-            if (move == "D" || move == "d") {
+            if (move.equals("D") || move.equals("d")) {
                 int nextX = x + 1;
                 int nextY = y;
 
@@ -141,7 +131,7 @@ public class Guardian {
                     }
                 }
             }
-            if (move == "S" || move == "s") {
+            if (move.equals("S") || move.equals("s")) {
                 int nextX = x;
                 int nextY = y + 1;
 
@@ -172,7 +162,7 @@ public class Guardian {
                     }
                 }
             }
-            if (move == "W" || move == "w") {
+            if (move.equals("W") || move.equals("w")) {
                 int nextX = x;
                 int nextY = y - 1;
 
@@ -247,8 +237,6 @@ public class Guardian {
             else {
                 maze[y][x] = Maze.EMPTY_SPACE;
             }
-//            maze[y][x] = Maze.EMPTY_SPACE;
-
         }
         return maze;
     }
