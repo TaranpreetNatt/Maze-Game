@@ -107,38 +107,52 @@ public class DisplayGame {
         keys.help();
 
         int[][] maze = Maze.generateMaze();
-//        Game.setNumOfRelics(1);
-
-        printMazeHidden(maze);
-        keys.displayRelicCount();
-        char move = input.userMoveInput();
-        maze = move(maze, move);
+        char move;
 
         while (!Game.win()) {
+            printMazeHidden(maze);
+            keys.displayRelicCount();
+            move = input.userMoveInput();
             if (Game.lose()) {
                 break;
             }
 
+            if (move == '?') {
+                keys.help();
+                continue;
+            }
+
+            if (move == 'm') {
+                printMaze(maze);
+                keys.displayRelicCount();
+                move = input.userMoveInput();
+            }
+
+            if (move == 'c') {
+                Game.setNumOfRelics(1);
+            }
+
+            maze = move(maze, move);
             printMazeHidden(maze);
             keys.displayRelicCount();
-            move = input.userMoveInput();
             maze = move(maze, move);
         }
 
         if (Game.win()) {
+            System.out.println();
             System.out.println("Conragulations hunter, You have won");
+            System.out.println();
             printMaze(maze);
             keys.displayRelicCount();
         }
 
         if (Game.lose()) {
+            System.out.println();
             System.out.println("You have been killed hunter");
             maze = Game.mazeLose(maze);
             printMaze(maze);
             keys.displayRelicCount();
             System.out.println("Game Over...Please Try again");
         }
-
-
     }
 }

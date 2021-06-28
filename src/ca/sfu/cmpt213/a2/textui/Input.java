@@ -22,6 +22,11 @@ public class Input {
         if (move == 'S' || move == 's' || move == 'D' || move == 'd') {
             return true;
         }
+
+        if (move == '?' || move == 'm' || move == 'M' || move == 'c' || move == 'C') {
+            return true;
+        }
+
         return false;
     }
 }
