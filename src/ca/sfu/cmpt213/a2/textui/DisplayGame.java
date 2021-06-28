@@ -92,21 +92,6 @@ public class DisplayGame {
         }
     }
 
-    private static void printMazeNum(int[][] maze) {
-        for (int i = 0; i < ROW; i++) {
-            for (int j = 0; j < COL; j++) {
-                System.out.print(maze[i][j]);
-            }
-            System.out.println();
-        }
-    }
-
-//    private static int[][] move(int[][] maze, char move) {
-//        maze = Player.movePlayer(maze, move);
-//        maze = Guardian.moveGuardians(maze);
-//        return maze;
-//    }
-
     public static void main(String[] args) {
         Help help = new Help();
         Input input = new Input();

@@ -1,0 +1,8 @@
+
+The game must support the pseudo-random movement of three guardians and the movement of the player. The model package should also provide a simple
+interface for the guardians and player movement to the user of the model package.
+
+The Guardian class has a method that moves the three guardians.
+The Player class has a method that moves the player according to the given movement.
+The Game class as a method that calls the player movement method and the guardians movement method.
+The Game class encapsulates the movement of the three guardians and the player which provides a simple interface for the users of the model package.
