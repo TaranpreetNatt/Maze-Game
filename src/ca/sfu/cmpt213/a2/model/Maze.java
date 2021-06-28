@@ -16,6 +16,8 @@ public class Maze {
     protected static final int WALL = 1;
     protected static final int BORDER = 9;
     protected static final int EMPTY_SPACE = 0;
+    protected static final int DISCOVERED_EMPTY_SPACE = 5;
+    protected static final int DISCOVERED_WALL = 6;
     protected static final int PLAYER = 2;
     protected static final int GUARDIAN = 3;
     protected static final int RELIC = 4;
@@ -167,10 +169,48 @@ public class Maze {
     public static void printMaze(int[][] maze) {
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
-                if (maze[i][j] == BORDER || maze[i][j] == WALL) {
+                if (maze[i][j] == BORDER || maze[i][j] == WALL || maze[i][j] == DISCOVERED_WALL) {
                     System.out.print("#");
                 }
+                if (maze[i][j] == EMPTY_SPACE || maze[i][j] == DISCOVERED_EMPTY_SPACE) {
+                    System.out.print(" ");
+                }
+
+                if (maze[i][j] == RELIC) {
+                    System.out.print("^");
+                }
+                if (maze[i][j] == PLAYER) {
+                    System.out.print("@");
+                }
+                if (maze[i][j] == GUARDIAN) {
+                    System.out.print("!");
+                }
+
+            }
+            System.out.println();
+        }
+    }
+
+    public static void printMazeHidden(int[][] maze) {
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                if (maze[i][j] == BORDER) {
+                    System.out.print("#");
+                }
+
+                if (maze[i][j] == WALL) {
+                    System.out.print(".");
+                }
+
+                if (maze[i][j] == DISCOVERED_WALL) {
+                    System.out.print("#");
+                }
+
                 if (maze[i][j] == EMPTY_SPACE) {
+                    System.out.print(".");
+                }
+
+                if (maze[i][j] == DISCOVERED_EMPTY_SPACE) {
                     System.out.print(" ");
                 }
 
@@ -235,7 +275,7 @@ public class Maze {
         maze = Guardian.createGuardians(maze);
 
 
-        printMaze(maze);
+        printMazeHidden(maze);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter move");
         char move = scanner.next().charAt(0);
@@ -252,7 +292,7 @@ public class Maze {
             System.out.println("You lost");
         }
         while (move != 'z') {
-            printMaze(maze);
+            printMazeHidden(maze);
             move = scanner.next().charAt(0);
             maze = Player.movePlayer(maze, move);
             maze = Guardian.moveGuardians(maze);
