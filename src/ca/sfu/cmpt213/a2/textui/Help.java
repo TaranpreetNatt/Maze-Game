@@ -3,7 +3,7 @@ package ca.sfu.cmpt213.a2.textui;
 import ca.sfu.cmpt213.a2.model.Game;
 import ca.sfu.cmpt213.a2.model.Player;
 
-public class SpecialKeys {
+public class Help {
 
     private void displayDirections() {
         System.out.println();

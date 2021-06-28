@@ -1,10 +1,7 @@
 package ca.sfu.cmpt213.a2.model;
 
-import java.security.Guard;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
-
 /** Creates maze
  * @author Taranpreet
  *
@@ -205,84 +202,6 @@ public class Maze {
         return maze;
     }
 
-    public static void printMaze(int[][] maze) {
-        for (int i = 0; i < ROW; i++) {
-            for (int j = 0; j < COL; j++) {
-                if (maze[i][j] == BORDER || maze[i][j] == WALL || maze[i][j] == DISCOVERED_WALL) {
-                    System.out.print("#");
-                }
-                if (maze[i][j] == EMPTY_SPACE || maze[i][j] == DISCOVERED_EMPTY_SPACE) {
-                    System.out.print(" ");
-                }
-
-                if (maze[i][j] == RELIC) {
-                    System.out.print("^");
-                }
-                if (maze[i][j] == PLAYER) {
-                    System.out.print("@");
-                }
-                if (maze[i][j] == GUARDIAN) {
-                    System.out.print("!");
-                }
-
-                if (maze[i][j] == LOSE) {
-                    System.out.print("X");
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    public static void printMazeHidden(int[][] maze) {
-        for (int i = 0; i < ROW; i++) {
-            for (int j = 0; j < COL; j++) {
-                if (maze[i][j] == BORDER) {
-                    System.out.print("#");
-                }
-
-                if (maze[i][j] == WALL) {
-                    System.out.print(".");
-                }
-
-                if (maze[i][j] == DISCOVERED_WALL) {
-                    System.out.print("#");
-                }
-
-                if (maze[i][j] == EMPTY_SPACE) {
-                    System.out.print(".");
-                }
-
-                if (maze[i][j] == DISCOVERED_EMPTY_SPACE) {
-                    System.out.print(" ");
-                }
-
-                if (maze[i][j] == RELIC) {
-                    System.out.print("^");
-                }
-                if (maze[i][j] == PLAYER) {
-                    System.out.print("@");
-                }
-                if (maze[i][j] == GUARDIAN) {
-                    System.out.print("!");
-                }
-                if (maze[i][j] == LOSE) {
-                    System.out.print("X");
-                }
-
-            }
-            System.out.println();
-        }
-    }
-
-    private static void printMazeNum(int[][] maze) {
-        for (int i = 0; i < ROW; i++) {
-            for (int j = 0; j < COL; j++) {
-                System.out.print(maze[i][j]);
-            }
-            System.out.println();
-        }
-    }
-
     public static boolean checkFourWalls(int[][] maze) {
         int counter = 1;
         for (int i = 1; i < ROW - 1; i++) {
@@ -305,50 +224,5 @@ public class Maze {
             }
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        int[][] maze = generateMaze();
-
-//        while(checkFourWalls(maze)) {
-//            maze = generateMaze();
-//            System.out.println("Four walls were detected, remaking maze");
-//        }
-
-        printMazeHidden(maze);
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter move");
-        char move = scanner.next().charAt(0);
-
-        Game.setNumOfRelics(1);
-        maze = Player.movePlayer(maze, move);
-        maze = Guardian.moveGuardians(maze);
-        if (Game.win()) {
-            System.out.println("You won");
-        }
-
-        if (Game.lose()) {
-            System.out.println("You lost");
-        }
-        while (move != 'z') {
-            printMazeHidden(maze);
-            move = scanner.next().charAt(0);
-            maze = Player.movePlayer(maze, move);
-            maze = Guardian.moveGuardians(maze);
-
-            if (Game.win()) {
-                System.out.println("You won");
-                break;
-            }
-
-            if (Game.lose()) {
-                maze = Game.mazeLose(maze);
-                System.out.println("You lost");
-                break;
-            }
-
-
-        }
-        printMaze(maze);
     }
 }

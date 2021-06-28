@@ -3,6 +3,7 @@ package ca.sfu.cmpt213.a2.textui;
 import java.util.Scanner;
 
 public class Input {
+    
     public char userMoveInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter move: ");

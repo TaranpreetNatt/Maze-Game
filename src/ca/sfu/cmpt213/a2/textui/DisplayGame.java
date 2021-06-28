@@ -4,6 +4,9 @@ import ca.sfu.cmpt213.a2.model.Guardian;
 import ca.sfu.cmpt213.a2.model.Maze;
 import ca.sfu.cmpt213.a2.model.Player;
 
+import static ca.sfu.cmpt213.a2.model.Maze.checkFourWalls;
+import static ca.sfu.cmpt213.a2.model.Maze.generateMaze;
+
 public class DisplayGame {
     protected static final int ROW = Maze.getRow();
     protected static final int COL = Maze.getCol();
@@ -102,29 +105,33 @@ public class DisplayGame {
     }
 
     public static void main(String[] args) {
-        SpecialKeys keys = new SpecialKeys();
+        Help help = new Help();
         Input input = new Input();
-        keys.help();
+        help.help();
 
-        int[][] maze = Maze.generateMaze();
+        int[][] maze = generateMaze();
+        while(checkFourWalls(maze)) {
+            maze = generateMaze();
+            System.out.println("Four walls were detected, remaking maze");
+        }
         char move;
 
         while (!Game.win()) {
             printMazeHidden(maze);
-            keys.displayRelicCount();
+            help.displayRelicCount();
             move = input.userMoveInput();
             if (Game.lose()) {
                 break;
             }
 
             if (move == '?') {
-                keys.help();
+                help.help();
                 continue;
             }
 
             if (move == 'm') {
                 printMaze(maze);
-                keys.displayRelicCount();
+                help.displayRelicCount();
                 move = input.userMoveInput();
             }
 
@@ -134,7 +141,7 @@ public class DisplayGame {
 
             maze = move(maze, move);
             printMazeHidden(maze);
-            keys.displayRelicCount();
+            help.displayRelicCount();
             maze = move(maze, move);
         }
 
@@ -143,7 +150,7 @@ public class DisplayGame {
             System.out.println("Conragulations hunter, You have won");
             System.out.println();
             printMaze(maze);
-            keys.displayRelicCount();
+            help.displayRelicCount();
         }
 
         if (Game.lose()) {
@@ -151,7 +158,7 @@ public class DisplayGame {
             System.out.println("You have been killed hunter");
             maze = Game.mazeLose(maze);
             printMaze(maze);
-            keys.displayRelicCount();
+            help.displayRelicCount();
             System.out.println("Game Over...Please Try again");
         }
     }
