@@ -279,7 +279,6 @@ public class Maze {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter move");
         char move = scanner.next().charAt(0);
-        System.out.println(move);
 
         Game.setNumOfRelics(1);
         maze = Player.movePlayer(maze, move);
