@@ -8,6 +8,7 @@ public class Player {
     public static int[][] createPlayer(int[][] maze) {
         maze[1][1] = PLAYER;
         playerPosition = new Coordinate(1, 1);
+        maze = reveal(maze);
         return maze;
     }
 
@@ -15,12 +16,13 @@ public class Player {
         return obtainedRelics;
     }
 
-    public static boolean atRelic(Coordinate playerPosition) {
+    public static int[][] atRelic(Coordinate playerPosition, int[][] maze) {
         if (Relic.isRelic(playerPosition)) {
+            maze = Relic.createRelic(maze);
             obtainedRelics = obtainedRelics + 1;
-            return true;
+            return maze;
         }
-        return false;
+        return maze;
     }
 
     public static Coordinate getPlayerPosition() {
@@ -104,7 +106,6 @@ public class Player {
     public static int[][] movePlayer(int[][] maze, char move) {
         int x = playerPosition.x;
         int y = playerPosition.y;
-
         if (move == 'D'|| move == 'd') {
             int nextX = x + 1;
             int nextY = y;
@@ -119,7 +120,7 @@ public class Player {
 
                 playerPosition.x = nextX;
                 playerPosition.y = nextY;
-                atRelic(playerPosition);
+                atRelic(playerPosition, maze);
                 maze = reveal(maze);
             }
         }
@@ -137,7 +138,7 @@ public class Player {
 
                 playerPosition.x = nextX;
                 playerPosition.y = nextY;
-                atRelic(playerPosition);
+                maze = atRelic(playerPosition, maze);
                 maze = reveal(maze);
             }
         }
@@ -155,7 +156,7 @@ public class Player {
 
                 playerPosition.x = nextX;
                 playerPosition.y = nextY;
-                atRelic(playerPosition);
+                maze = atRelic(playerPosition, maze);
                 maze = reveal(maze);
             }
         }
@@ -173,7 +174,7 @@ public class Player {
 
                 playerPosition.x = nextX;
                 playerPosition.y = nextY;
-                atRelic(playerPosition);
+                maze = atRelic(playerPosition, maze);
                 maze = reveal(maze);
             }
         }

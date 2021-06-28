@@ -21,7 +21,43 @@ public class Maze {
     protected static final int PLAYER = 2;
     protected static final int GUARDIAN = 3;
     protected static final int RELIC = 4;
+    protected static final int LOSE = 7;
     private static ArrayList<Coordinate> pathList = new ArrayList<Coordinate>();
+
+    public static int getRow() {
+        return ROW;
+    }
+    public static int getCol() {
+        return COL;
+    }
+    public static  int getWall() {
+        return WALL;
+    }
+    public static int getBorder() {
+        return BORDER;
+    }
+    public static int getEmptySpace() {
+        return EMPTY_SPACE;
+    }
+    public static int getDiscoveredEmptySpace() {
+        return DISCOVERED_EMPTY_SPACE;
+    }
+    public static int getDiscoveredWall() {
+        return DISCOVERED_WALL;
+    }
+    public static int getPlayer() {
+        return PLAYER;
+    }
+    public static int getGuardian() {
+        return GUARDIAN;
+    }
+    public static int getRelic() {
+        return RELIC;
+    }
+
+    public static int getLose() {
+        return LOSE;
+    }
 
     public static ArrayList<Coordinate> getPathList() {
         return pathList;
@@ -43,7 +79,7 @@ public class Maze {
         return waitList;
     }
 
-    public static int[][] fillMaze() {
+    private static int[][] fillMaze() {
         int row = Maze.ROW;
         int col = Maze.COL;
         int border = Maze.BORDER;
@@ -163,6 +199,9 @@ public class Maze {
         }
         maze[ROW - 2][COL - 3] = EMPTY_SPACE;
         maze[ROW - 4][COL - 2] = EMPTY_SPACE;
+        maze = Relic.createRelic(maze);
+        maze = Player.createPlayer(maze);
+        maze = Guardian.createGuardians(maze);
         return maze;
     }
 
@@ -186,6 +225,9 @@ public class Maze {
                     System.out.print("!");
                 }
 
+                if (maze[i][j] == LOSE) {
+                    System.out.print("X");
+                }
             }
             System.out.println();
         }
@@ -222,6 +264,9 @@ public class Maze {
                 }
                 if (maze[i][j] == GUARDIAN) {
                     System.out.print("!");
+                }
+                if (maze[i][j] == LOSE) {
+                    System.out.print("X");
                 }
 
             }
@@ -270,11 +315,6 @@ public class Maze {
 //            System.out.println("Four walls were detected, remaking maze");
 //        }
 
-        maze = Relic.createRelic(maze);
-        maze = Player.createPlayer(maze);
-        maze = Guardian.createGuardians(maze);
-
-
         printMazeHidden(maze);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter move");
@@ -302,6 +342,7 @@ public class Maze {
             }
 
             if (Game.lose()) {
+                maze = Game.mazeLose(maze);
                 System.out.println("You lost");
                 break;
             }

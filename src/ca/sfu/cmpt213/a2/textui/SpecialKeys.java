@@ -1,5 +1,8 @@
 package ca.sfu.cmpt213.a2.textui;
 
+import ca.sfu.cmpt213.a2.model.Game;
+import ca.sfu.cmpt213.a2.model.Player;
+
 public class SpecialKeys {
 
     private void displayDirections() {
@@ -21,6 +24,15 @@ public class SpecialKeys {
         System.out.println("Use W (up), A (left), S (down), D (right)");
         System.out.println("Only one character is allowed at a time");
         System.out.println("You must press enter after every move");
+    }
+
+    public void displayRelicCount() {
+        int obtainedRelics = Player.getObtainedRelics();
+        int relicsToBeCollected = Game.getRelicWinCondition();
+        System.out.print("Total number of relics to be collected: ");
+        System.out.println(relicsToBeCollected);
+        System.out.print("Numer of relics currently in possession: ");
+        System.out.println(obtainedRelics);
     }
 
     public void help() {

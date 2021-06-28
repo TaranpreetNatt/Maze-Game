@@ -11,8 +11,20 @@ public class Game {
         return Player.getObtainedRelics() == RELIC_WIN_CONDITION;
     }
 
+    public static int getRelicWinCondition() {
+        return RELIC_WIN_CONDITION;
+    }
+
     public static boolean lose() {
         Coordinate playerPosition = Player.getPlayerPosition();
         return Guardian.atGuardian(playerPosition);
+    }
+
+    public static int[][] mazeLose(int[][] maze) {
+        if (lose()) {
+            Coordinate playerPosition = Player.getPlayerPosition();
+            maze[playerPosition.y][playerPosition.x] = Maze.LOSE;
+        }
+        return maze;
     }
 }
