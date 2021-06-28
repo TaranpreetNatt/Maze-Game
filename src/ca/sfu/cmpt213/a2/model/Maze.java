@@ -2,11 +2,11 @@ package ca.sfu.cmpt213.a2.model;
 
 import java.util.ArrayList;
 import java.util.Random;
-/** Creates maze
+
+/** Creates maze using Randomized Prim's algorithm and no 2x2 walls and no 2x2 empty spaces
  * @author Taranpreet
  *
  */
-
 public class Maze {
     protected static final int ROW = 16;
     protected static final int COL = 20;
@@ -51,15 +51,21 @@ public class Maze {
     public static int getRelic() {
         return RELIC;
     }
-
     public static int getLose() {
         return LOSE;
     }
-
     public static ArrayList<Coordinate> getPathList() {
         return pathList;
     }
 
+    /**
+     * Adds unvisited cells to a waitlist
+     * @param waitList Coordinate ArrayList waitlist of unvisited cells
+     * @param maze 2D array of the maze
+     * @param x int column of current empty cell
+     * @param y int row of current empty cell
+     * @return Coordinate ArrayList of unvisited cells
+     */
     private static ArrayList<Coordinate> addWaitList(ArrayList<Coordinate> waitList, int[][] maze, int x, int y) {
         if (maze[y - 1][x] == 1) {
             waitList.add(new Coordinate(y - 1, x));
@@ -76,6 +82,10 @@ public class Maze {
         return waitList;
     }
 
+    /**
+     * Fills maze with walls and makes empty space in the top left, top right, bottom left, and bottom right cells
+     * @return 2D array of the maze with the cells filled to specification
+     */
     private static int[][] fillMaze() {
         int row = Maze.ROW;
         int col = Maze.COL;
@@ -112,6 +122,10 @@ public class Maze {
         return maze;
     }
 
+    /**
+     * Generates the maze using Randomized Prim's Algorithm
+     * @return 2D Array of maze after it has been fully generated
+     */
     public static int[][] generateMaze() {
         int[][] maze = fillMaze();
         int xStart = 1;
@@ -202,6 +216,11 @@ public class Maze {
         return maze;
     }
 
+    /**
+     * Checks whether maze has 2x2 walls
+     * @param maze 2D array of maze
+     * @return Boolean, true if there exists 2x2 walls or false if there is no 2x2 walls
+     */
     public static boolean checkFourWalls(int[][] maze) {
         int counter = 1;
         for (int i = 1; i < ROW - 1; i++) {

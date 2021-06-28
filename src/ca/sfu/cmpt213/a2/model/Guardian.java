@@ -3,6 +3,10 @@ package ca.sfu.cmpt213.a2.model;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A class for the guardians of the maze
+ * @author Taranpreet
+ */
 public class Guardian {
     private static final int GUARDIAN = Maze.GUARDIAN;
     private static final int RELIC = Maze.RELIC;
@@ -11,6 +15,11 @@ public class Guardian {
     private static final ArrayList<Coordinate> lastPositionThree = new ArrayList<>();
     private static final ArrayList<Coordinate> currentPosition = new ArrayList<>();
 
+    /**
+     * Creates three guardians in the top right, bottom left, and bottom right corners
+     * @param maze 2D Array of the maze
+     * @return 2D Array of the maze with guardians in the maze
+     */
     public static int[][] createGuardians(int[][] maze) {
         maze[1][18] = GUARDIAN;
         maze[14][1] = GUARDIAN;
@@ -22,6 +31,11 @@ public class Guardian {
         return maze;
     }
 
+    /**
+     * Moves all three guardians pseudo-randomly
+     * @param maze 2D Array of maze
+     * @return 2D Array of the maze with guardians moved pseudo-randomly
+     */
     public static int[][] moveGuardians(int[][] maze) {
         maze = moveGuardian(maze, 0);
         maze = moveGuardian(maze, 1);
@@ -29,6 +43,11 @@ public class Guardian {
         return maze;
     }
 
+    /**
+     * Checks if player and guardian are at the same place
+     * @param playerPosition Coordinate object of the player's current position
+     * @return Boolean, true if the guardian and player are at the same place, false otherwise
+     */
     public static boolean atGuardian(Coordinate playerPosition) {
         int x = playerPosition.x;
         int y = playerPosition.y;
@@ -42,7 +61,13 @@ public class Guardian {
         return currentPosition.get(2).x == x && currentPosition.get(2).y == y;
     }
 
-    public static int[][] moveGuardian(int[][] maze, int i) {
+    /**
+     * Moves a specified guardian
+     * @param maze 2D Array of maze
+     * @param i Guardian id
+     * @return 2D Array of the maze with the guardian moved pseudo-randomly
+     */
+    private static int[][] moveGuardian(int[][] maze, int i) {
         ArrayList<String> moves = new ArrayList<>();
         moves.add("w");
         moves.add("a");
@@ -197,6 +222,16 @@ public class Guardian {
         return maze;
     }
 
+    /**
+     * Checks if the guardian cannot move. Meaning the guardian is surrounded by tiles and cannot go backwards
+     * @param maze 2D array of maze
+     * @param currentPosition Coordinate of guardian's current position
+     * @param last Coordinate of guardian's last position
+     * @param nextX int guardian's next column move
+     * @param nextY int guardian's next row move
+     * @param lastPosition ArrayList of guardians last position
+     * @return
+     */
     private static boolean noLegalMove(int[][] maze, Coordinate currentPosition, Coordinate last, int nextX, int nextY, ArrayList<Coordinate> lastPosition) {
         int x = currentPosition.x;
         int y = currentPosition.y;
@@ -221,6 +256,16 @@ public class Guardian {
         return false;
     }
 
+    /**
+     * Re-renders the relic after guardian has gone over the tile
+     * @param maze 2D array of maze
+     * @param y int guardian's current row position
+     * @param x int guardian's current column position
+     * @param i int guardian's id
+     * @param nextX int guardian's next column position
+     * @param nextY int guardian's next row position
+     * @return 2D array of the maze with the relic re-rendered
+     */
     private static int[][] reRenderRelic(int[][] maze, int y, int x, int i, int nextX, int nextY) {
         if (Relic.isRelic(currentPosition.get(i))) {
             Coordinate relicPosition = Relic.getRelicPosition();
@@ -241,6 +286,12 @@ public class Guardian {
         return maze;
     }
 
+    /**
+     * Finds the lastposition coordinate of the guardian with the given id
+     * @param id int id of guardian
+     * @param lastPosition ArrayList of guardian's last position
+     * @return Coordinate of guardian's last position
+     */
     private static Coordinate findLastPosition(int id, ArrayList<Coordinate> lastPosition) {
         Coordinate last = new Coordinate();
         for (int i = 0; i < lastPosition.size(); i++) {

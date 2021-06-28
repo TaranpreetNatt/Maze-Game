@@ -1,5 +1,9 @@
 package ca.sfu.cmpt213.a2.model;
 
+/** Creates maze using Randomized Prim's algorithm and no 2x2 walls and no 2x2 empty spaces
+ * @author Taranpreet
+ *
+ */
 public class Player {
     private static Coordinate playerPosition;
     private static int obtainedRelics;
