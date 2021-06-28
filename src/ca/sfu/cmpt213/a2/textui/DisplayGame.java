@@ -1,12 +1,15 @@
 package ca.sfu.cmpt213.a2.textui;
 import ca.sfu.cmpt213.a2.model.Game;
-import ca.sfu.cmpt213.a2.model.Guardian;
 import ca.sfu.cmpt213.a2.model.Maze;
-import ca.sfu.cmpt213.a2.model.Player;
 
+import static ca.sfu.cmpt213.a2.model.Game.move;
 import static ca.sfu.cmpt213.a2.model.Maze.checkFourWalls;
 import static ca.sfu.cmpt213.a2.model.Maze.generateMaze;
 
+/** Class to display the maze. Displays hidden maze and revealed maze.
+ * Implements other classes to get user input and create ui for the game.
+ * @author Taranpreet
+ */
 public class DisplayGame {
     protected static final int ROW = Maze.getRow();
     protected static final int COL = Maze.getCol();
@@ -20,7 +23,7 @@ public class DisplayGame {
     protected static final int RELIC = Maze.getRelic();
     protected static final int LOSE = Maze.getLose();
 
-    public static void printMaze(int[][] maze) {
+    private static void printMaze(int[][] maze) {
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
                 if (maze[i][j] == BORDER || maze[i][j] == WALL || maze[i][j] == DISCOVERED_WALL) {
@@ -48,7 +51,7 @@ public class DisplayGame {
         }
     }
 
-    public static void printMazeHidden(int[][] maze) {
+    private static void printMazeHidden(int[][] maze) {
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
                 if (maze[i][j] == BORDER) {
@@ -98,11 +101,11 @@ public class DisplayGame {
         }
     }
 
-    private static int[][] move(int[][] maze, char move) {
-        maze = Player.movePlayer(maze, move);
-        maze = Guardian.moveGuardians(maze);
-        return maze;
-    }
+//    private static int[][] move(int[][] maze, char move) {
+//        maze = Player.movePlayer(maze, move);
+//        maze = Guardian.moveGuardians(maze);
+//        return maze;
+//    }
 
     public static void main(String[] args) {
         Help help = new Help();

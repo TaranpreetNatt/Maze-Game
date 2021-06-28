@@ -2,6 +2,9 @@ package ca.sfu.cmpt213.a2.textui;
 
 import java.util.Scanner;
 
+/** Class to get input from the user and validate the input.
+ * @author Taranpreet
+ */
 public class Input {
 
     public char userMoveInput() {

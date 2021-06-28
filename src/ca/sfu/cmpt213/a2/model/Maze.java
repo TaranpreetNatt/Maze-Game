@@ -5,7 +5,6 @@ import java.util.Random;
 
 /** Creates maze using Randomized Prim's algorithm and no 2x2 walls and no 2x2 empty spaces
  * @author Taranpreet
- *
  */
 public class Maze {
     protected static final int ROW = 16;

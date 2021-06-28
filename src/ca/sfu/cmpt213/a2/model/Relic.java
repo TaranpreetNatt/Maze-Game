@@ -3,6 +3,9 @@ package ca.sfu.cmpt213.a2.model;
 import java.util.ArrayList;
 import java.util.Random;
 
+/** Class to create the relic, get the relics position, and check whether the guardian or player is on the relic.
+ * @author Taranpreet
+ */
 public class Relic {
     private static Coordinate relicPosition;
     private static final int RELIC = Maze.RELIC;

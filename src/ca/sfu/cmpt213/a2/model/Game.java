@@ -1,7 +1,7 @@
 package ca.sfu.cmpt213.a2.model;
 
 /**
- * A class for game state
+ * A class for the game state. Checks for win, loss conditions and sets relic win condition
  * @author Taranpreet
  */
 public class Game {
@@ -50,6 +50,12 @@ public class Game {
             Coordinate playerPosition = Player.getPlayerPosition();
             maze[playerPosition.y][playerPosition.x] = Maze.LOSE;
         }
+        return maze;
+    }
+
+    public static int[][] move(int[][] maze, char move) {
+        maze = Player.movePlayer(maze, move);
+        maze = Guardian.moveGuardians(maze);
         return maze;
     }
 }

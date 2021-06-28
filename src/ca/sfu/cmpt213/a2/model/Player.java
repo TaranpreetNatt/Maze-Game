@@ -1,14 +1,26 @@
 package ca.sfu.cmpt213.a2.model;
 
-/** Creates maze using Randomized Prim's algorithm and no 2x2 walls and no 2x2 empty spaces
+/** Class to create the player, move the player, and collect relics.
+ * Class also performs checks to see whether player is on guardian, or relic.
  * @author Taranpreet
- *
  */
 public class Player {
     private static Coordinate playerPosition;
     private static int obtainedRelics;
     private static final int PLAYER = Maze.PLAYER;
 
+    public static int getObtainedRelics() {
+        return obtainedRelics;
+    }
+    public static Coordinate getPlayerPosition() {
+        return playerPosition;
+    }
+
+    /**
+     * Creates player in maze
+     * @param maze 2D array of the maze
+     * @return 2D array of the maze with the player in the maze
+     */
     public static int[][] createPlayer(int[][] maze) {
         maze[1][1] = PLAYER;
         playerPosition = new Coordinate(1, 1);
@@ -16,10 +28,12 @@ public class Player {
         return maze;
     }
 
-    public static int getObtainedRelics() {
-        return obtainedRelics;
-    }
-
+    /**
+     * Checks whether player is at the relic and renders a new relic
+     * @param playerPosition Coordinate of the players current position
+     * @param maze 2D array of the maze
+     * @return 2D array of the maze with the new relic
+     */
     public static int[][] atRelic(Coordinate playerPosition, int[][] maze) {
         if (Relic.isRelic(playerPosition)) {
             maze = Relic.createRelic(maze);
@@ -29,14 +43,20 @@ public class Player {
         return maze;
     }
 
-    public static Coordinate getPlayerPosition() {
-        return playerPosition;
-    }
-
+    /**
+     * Checks whether guardian is on the player
+     * @param guardian Coordinate of the guardian
+     * @return Boolean, true if guardian is on player, false otherwise
+     */
     public static boolean atPlayer(Coordinate guardian) {
         return guardian.x == playerPosition.x && guardian.y == playerPosition.y;
     }
 
+    /**
+     * Reveals the maze around the player
+     * @param maze 2D array of maze
+     * @return 2D array of maze after it has been revealed
+     */
     private static int[][] reveal(int[][] maze) {
         int x = playerPosition.x;
         int y = playerPosition.y;
@@ -107,6 +127,12 @@ public class Player {
         return maze;
     }
 
+    /**
+     * Moves player the direction the user wants
+     * @param maze 2D array of maze
+     * @param move char direction to move player
+     * @return 2D array of maze after the player has been moved
+     */
     public static int[][] movePlayer(int[][] maze, char move) {
         int x = playerPosition.x;
         int y = playerPosition.y;

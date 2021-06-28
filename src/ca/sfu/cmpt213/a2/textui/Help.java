@@ -3,6 +3,9 @@ package ca.sfu.cmpt213.a2.textui;
 import ca.sfu.cmpt213.a2.model.Game;
 import ca.sfu.cmpt213.a2.model.Player;
 
+/** Class to dispaly directions, legend, movement instructions, and obtained relic and relic win condition.
+ * @author Taranpreet
+ */
 public class Help {
 
     private void displayDirections() {

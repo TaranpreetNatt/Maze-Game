@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * A class for the guardians of the maze
+ * Class to to create, move, and perform checks on guardians. Checks include whether they are on the player or relic.
  * @author Taranpreet
  */
 public class Guardian {
